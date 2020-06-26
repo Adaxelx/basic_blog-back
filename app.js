@@ -2,11 +2,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
-// var indexRouter = require("./routes/index");
-// var usersRouter = require("./routes/users");
-
-const { index } = require("./routes");
+const { index, news, login, quiz, admin } = require("./routes");
 
 var app = express();
 
@@ -16,6 +12,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-index(app);
+app.use("/", index);
+app.use("/admin", admin);
+app.use("/login", login);
+app.use("/quiz", quiz);
+app.use("/news", news);
 
 module.exports = app;
