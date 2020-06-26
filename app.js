@@ -3,6 +3,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+const cors = require("cors"); // przydatne do walki z corsem https://dev.to/p0oker/why-is-my-browser-sending-an-options-http-request-instead-of-post-5621
+
 const config = require("./config");
 const mongoose = require("mongoose");
 mongoose.connect(config.db, {
@@ -14,15 +16,7 @@ db.on("error", console.error.bind(console, "connection error:"));
 const { index, news, login, quiz, admin } = require("./routes");
 var app = express();
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
