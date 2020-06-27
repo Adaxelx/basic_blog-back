@@ -5,8 +5,7 @@ const News = require("../models/news");
 router.get("/:id?", (req, res) => {
   const filter = req.params.id;
 
-  console.log(filter);
-
+  // mozna dodać pole .select("_id,title") aby zwracać tylko wybrane właściwości( w tym przypadku _id i title)
   const findData = filter
     ? News.find({ title: new RegExp(filter, "i") }).sort({
         date: -1,
