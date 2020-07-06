@@ -12,10 +12,19 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   const { login, password } = req.body;
+
   if (login === dummyData.login && password === dummyData.password) {
-    res.json({ status: 200, message: "Poprawnie zalogowano.", token: "abc" });
+    return res.json({
+      status: 200,
+      message: "Poprawnie zalogowano.",
+      token: "abc",
+    });
+  } else if (login !== dummyData.login || password !== dummyData.password) {
+    res.status(403);
+    return res.json({ message: "Nieprawidłowe hasło" });
   } else {
-    res.json({ status: 403, message: "Nieprawidłowe hasło" });
+    res.status(500);
+    return res.json({ message: "Nieznany błąd" });
   }
 });
 
